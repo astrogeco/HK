@@ -2,13 +2,13 @@
 ** File:
 **   $Id: hk_app.c 1.3 2016/10/28 10:51:14EDT mdeschu Exp  $
 **
-**  Copyright © 2007-2014 United States Government as represented by the 
-**  Administrator of the National Aeronautics and Space Administration. 
-**  All Other Rights Reserved.  
+**  Copyright © 2007-2014 United States Government as represented by the
+**  Administrator of the National Aeronautics and Space Administration.
+**  All Other Rights Reserved.
 **
 **  This software was created at NASA's Goddard Space Flight Center.
-**  This software is governed by the NASA Open Source Agreement and may be 
-**  used, distributed and modified only pursuant to the terms of that 
+**  This software is governed by the NASA Open Source Agreement and may be
+**  used, distributed and modified only pursuant to the terms of that
 **  agreement.
 **
 ** Purpose:
@@ -18,39 +18,39 @@
 ** Notes:
 **
 ** $Log: hk_app.c  $
-** Revision 1.3 2016/10/28 10:51:14EDT mdeschu 
+** Revision 1.3 2016/10/28 10:51:14EDT mdeschu
 ** Fix compiler format warnings in calls to CFE_EVS_SendEvent  by casting them appropriately
-** Revision 1.2 2015/11/10 16:49:05EST lwalling 
+** Revision 1.2 2015/11/10 16:49:05EST lwalling
 ** Restore data lost in MKS 2010 from MKS 2009
-** Revision 1.1 2015/07/25 21:31:29EDT rperera 
+** Revision 1.1 2015/07/25 21:31:29EDT rperera
 ** Initial revision
 ** Member added to project /CFS-APPs-PROJECT/hk/fsw/src/project.pj
-** Revision 1.17 2015/03/04 14:58:32EST sstrege 
+** Revision 1.17 2015/03/04 14:58:32EST sstrege
 ** Added copyright information
-** Revision 1.16 2012/08/23 17:12:31EDT aschoeni 
+** Revision 1.16 2012/08/23 17:12:31EDT aschoeni
 ** Made internal commands no longer increment error counters (and changed event message slightly).
-** Revision 1.15 2011/11/30 16:03:05EST jmdagost 
+** Revision 1.15 2011/11/30 16:03:05EST jmdagost
 ** Added new-line character to syslog call.
-** Revision 1.14 2011/06/23 11:57:54EDT jmdagost 
+** Revision 1.14 2011/06/23 11:57:54EDT jmdagost
 ** Removed error counter increment in housekeeping request command error (per guidelines)
-** Revision 1.13 2010/06/09 12:00:49EDT jmdagost 
+** Revision 1.13 2010/06/09 12:00:49EDT jmdagost
 ** Update subscription error messages in HK Init.
-** Revision 1.12 2009/12/03 18:11:47EST jmdagost 
+** Revision 1.12 2009/12/03 18:11:47EST jmdagost
 ** Modified event message arguments to use updated event definitions.
-** Revision 1.11 2009/12/03 15:24:57EST jmdagost 
+** Revision 1.11 2009/12/03 15:24:57EST jmdagost
 ** Modified the error logic to include an else-block that processes the message.  Also added a call to syslog.
-** Revision 1.10 2009/12/03 15:14:49EST jmdagost 
+** Revision 1.10 2009/12/03 15:14:49EST jmdagost
 ** Replaced event message call with a call to syslog as requested.
-** Revision 1.9 2008/09/17 15:52:18EDT rjmcgraw 
+** Revision 1.9 2008/09/17 15:52:18EDT rjmcgraw
 ** DCR4040:1 Added spaces to align text
-** Revision 1.8 2008/09/11 11:42:43EDT rjmcgraw 
+** Revision 1.8 2008/09/11 11:42:43EDT rjmcgraw
 ** DCR4041:1 Added hk_version.h and hk_platform_cfg.h to #include list
-** Revision 1.7 2008/08/08 14:34:58EDT rjmcgraw 
+** Revision 1.7 2008/08/08 14:34:58EDT rjmcgraw
 ** DCR4209:1 Added #include hk_verify.h
-** Revision 1.6 2008/07/16 10:01:12EDT rjmcgraw 
+** Revision 1.6 2008/07/16 10:01:12EDT rjmcgraw
 ** DCR4042:1 Displaying app version number in init event and no-op event
 ** Revision 1.5 2008/06/19 13:21:35EDT rjmcgraw
-** DCR3052:1 Call to CheckStatusOfTables instead of HandleUpdateToCopyTable 
+** DCR3052:1 Call to CheckStatusOfTables instead of HandleUpdateToCopyTable
 **   during HK Req
 ** Revision 1.4 2008/05/15 09:33:25EDT rjmcgraw
 ** DCR1647:1 Fixed problem with zeroed out telemetry
@@ -251,9 +251,9 @@ int32 HK_AppInit(void)
     Status = CFE_EVS_SendEvent (HK_INIT_EID, CFE_EVS_INFORMATION,
                "HK Initialized.  Version %d.%d.%d.%d",
                 HK_MAJOR_VERSION,
-                HK_MINOR_VERSION, 
-                HK_REVISION, 
-                HK_MISSION_REV);               
+                HK_MINOR_VERSION,
+                HK_REVISION,
+                HK_MISSION_REV);
 
     if (Status != CFE_SUCCESS)
     {
@@ -380,9 +380,9 @@ void HK_AppPipe (CFE_SB_MsgPtr_t MessagePtr)
             if (CFE_SB_GetTotalMsgLength(MessagePtr) != sizeof(HK_Send_Out_Msg_t))
             {
                 CFE_EVS_SendEvent( HK_MSG_LEN_ERR_EID, CFE_EVS_ERROR,
-                                   "Msg with Bad length Rcvd: ID = 0x%04X, Exp Len = %d, Len = %d",
-                                   MessageID,  
-                                   sizeof(HK_Send_Out_Msg_t), 
+                                   "Msg with Bad length Rcvd: ID = 0x%04X, Exp Len = %ld, Len = %d",
+                                   MessageID,
+                                   sizeof(HK_Send_Out_Msg_t),
                                    CFE_SB_GetTotalMsgLength(MessagePtr));
             }
             else
@@ -396,9 +396,9 @@ void HK_AppPipe (CFE_SB_MsgPtr_t MessagePtr)
             if (CFE_SB_GetTotalMsgLength(MessagePtr) != CFE_SB_CMD_HDR_SIZE)
             {
                 CFE_EVS_SendEvent( HK_MSG_LEN_ERR_EID, CFE_EVS_ERROR,
-                                   "Msg with Bad length Rcvd: ID = 0x%04X, Exp Len = %d, Len = %d",
-                                   MessageID,  
-                                   CFE_SB_CMD_HDR_SIZE, 
+                                   "Msg with Bad length Rcvd: ID = 0x%04X, Exp Len = %ld, Len = %d",
+                                   MessageID,
+                                   CFE_SB_CMD_HDR_SIZE,
                                    CFE_SB_GetTotalMsgLength(MessagePtr));
             }
             else
@@ -505,8 +505,8 @@ void HK_NoopCmd (CFE_SB_MsgPtr_t MessagePtr)
         CFE_EVS_SendEvent (HK_NOOP_CMD_EID, CFE_EVS_INFORMATION,
             "HK No-op command, Version %d.%d.%d.%d",
              HK_MAJOR_VERSION,
-             HK_MINOR_VERSION, 
-             HK_REVISION, 
+             HK_MINOR_VERSION,
+             HK_REVISION,
              HK_MISSION_REV);
 
         HK_AppData.CmdCounter++;
