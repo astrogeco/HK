@@ -380,7 +380,7 @@ void HK_AppPipe (CFE_SB_MsgPtr_t MessagePtr)
             if (CFE_SB_GetTotalMsgLength(MessagePtr) != sizeof(HK_Send_Out_Msg_t))
             {
                 CFE_EVS_SendEvent( HK_MSG_LEN_ERR_EID, CFE_EVS_ERROR,
-                                   "Msg with Bad length Rcvd: ID = 0x%04X, Exp Len = %ld, Len = %ld",
+                                   "Msg with Bad length Rcvd: ID = 0x%04X, Exp Len = %ld, Len = %d",
                                    MessageID,
                                    sizeof(HK_Send_Out_Msg_t),
                                    CFE_SB_GetTotalMsgLength(MessagePtr));
@@ -396,7 +396,7 @@ void HK_AppPipe (CFE_SB_MsgPtr_t MessagePtr)
             if (CFE_SB_GetTotalMsgLength(MessagePtr) != CFE_SB_CMD_HDR_SIZE)
             {
                 CFE_EVS_SendEvent( HK_MSG_LEN_ERR_EID, CFE_EVS_ERROR,
-                                   "Msg with Bad length Rcvd: ID = 0x%04X, Exp Len = %ld, Len = %ld",
+                                   "Msg with Bad length Rcvd: ID = 0x%04X, Exp Len = %ld, Len = %d",
                                    MessageID,
                                    CFE_SB_CMD_HDR_SIZE,
                                    CFE_SB_GetTotalMsgLength(MessagePtr));
